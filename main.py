@@ -27,8 +27,8 @@ for filepath in filepaths:
     pdf.set_font(family="Times", size=10, style="B")
     pdf.set_text_color(80, 80, 80)
     pdf.cell(w=30, h=8, txt=column_headers[0], border=1)
-    pdf.cell(w=70, h=8, txt=column_headers[1], border=1)
-    pdf.cell(w=30, h=8, txt=column_headers[2], border=1)
+    pdf.cell(w=65, h=8, txt=column_headers[1], border=1)
+    pdf.cell(w=35, h=8, txt=column_headers[2], border=1)
     pdf.cell(w=30, h=8, txt=column_headers[3], border=1)
     pdf.cell(w=30, h=8, txt=column_headers[4], border=1, ln=1)
 
@@ -37,10 +37,28 @@ for filepath in filepaths:
         pdf.set_font(family="Times", size=10)
         pdf.set_text_color(80, 80, 80)
         pdf.cell(w=30, h=8, txt=str(row["product_id"]), border=1)
-        pdf.cell(w=70, h=8, txt=str(row["product_name"]), border=1)
-        pdf.cell(w=30, h=8, txt=str(row["amount_purchased"]), border=1)
+        pdf.cell(w=65, h=8, txt=str(row["product_name"]), border=1)
+        pdf.cell(w=35, h=8, txt=str(row["amount_purchased"]), border=1)
         pdf.cell(w=30, h=8, txt=str(row["price_per_unit"]), border=1)
         pdf.cell(w=30, h=8, txt=str(row["total_price"]), border=1, ln=1)
+
+    total_sum = df["total_price"].sum()
+
+    pdf.cell(w=30, h=8, txt="", border=1)
+    pdf.cell(w=65, h=8, txt="", border=1)
+    pdf.cell(w=35, h=8, txt="", border=1)
+    pdf.cell(w=30, h=8, txt="", border=1)
+    pdf.cell(w=30, h=8, txt=str(total_sum), border=1, ln=1)
+
+    #Add Total Price Text
+    pdf.set_font(family="Times", size=10, style="B")
+    pdf.cell(w=30, h=8, txt=f"The total price is {total_sum}", ln=1)
+
+    #Add company name and logo
+    pdf.set_font(family="Times", size=14, style="B")
+    pdf.cell(w=25, h=8, txt="PythonHow")
+    pdf.image("pythonhow.png", w=10)
+
 
     pdf.output(f"PDFs/{filename}.pdf")
 
